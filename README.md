@@ -66,7 +66,7 @@ sequenceDiagram
     Payment->>Delivery: Complete simulated purchase
     Delivery-->>Visitor: Show QR and activation guidance
 
-    Note over Checkout,Delivery: Demonstration only; no live service calls or persistence
+    Note over Checkout,Delivery: Demonstration only, with no live service calls or persistence
 ```
 
 ## View the Original Prototype
