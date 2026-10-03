@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AAA E-Sim eSIM – UI Prototype</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    * { font-family: 'Inter', sans-serif; }
+    .screen { display: none; }
+    .screen.active { display: block; }
+    .nav-pill { transition: all 0.2s; }
+    .nav-pill.active { background: #0EA5E9; color: white; }
+    .carrier-badge { font-size: 10px; letter-spacing: 0.05em; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .fade-in { animation: fadeIn 0.3s ease forwards; }
+    .qr-cell { width: 8px; height: 8px; display: inline-block; }
+    .gradient-hero { background: linear-gradient(135deg, #0C1A3E 0%, #0369A1 60%, #0EA5E9 100%); }
+    .card-hover { transition: all 0.2s; }
+    .card-hover:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(14,165,233,0.15); }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+<!-- NAVIGATION CONTROLS -->
+<div class="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200 shadow-sm">
+  <div class="max-w-6xl mx-auto px-4 py-2 flex items-center gap-2 overflow-x-auto">
+    <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider mr-2 whitespace-nowrap">Flow:</span>
+    <button onclick="show('home')" class="nav-pill active text-xs font-medium px-3 py-1.5 rounded-full border border-gray-200 whitespace-nowrap" id="pill-home">1. Home</button>
+    <span class="text-gray-300">›</span>
+    <button onclick="show('browse')" class="nav-pill text-xs font-medium px-3 py-1.5 rounded-full border border-gray-200 whitespace-nowrap" id="pill-browse">2. Browse Plans</button>
+    <span class="text-gray-300">›</span>
+    <button onclick="show('detail')" class="nav-pill text-xs font-medium px-3 py-1.5 rounded-full border border-gray-200 whitespace-nowrap" id="pill-detail">3. Plan Detail</button>
+    <span class="text-gray-300">›</span>
+    <button onclick="show('cart')" class="nav-pill text-xs font-medium px-3 py-1.5 rounded-full border border-gray-200 whitespace-nowrap" id="pill-cart">4. Cart</button>
+    <span class="text-gray-300">›</span>
+    <button onclick="show('checkout')" class="nav-pill text-xs font-medium px-3 py-1.5 rounded-full border border-gray-200 whitespace-nowrap" id="pill-checkout">5. Checkout</button>
+    <span class="text-gray-300">›</span>
+    <button onclick="show('processing')" class="nav-pill text-xs font-medium px-3 py-1.5 rounded-full border border-gray-200 whitespace-nowrap" id="pill-processing">6. Processing</button>
+    <span class="text-gray-300">›</span>
+    <button onclick="show('success')" class="nav-pill text-xs font-medium px-3 py-1.5 rounded-full border border-gray-200 whitespace-nowrap" id="pill-success">7. eSIM Delivered ✓</button>
+  </div>
+</div>
+
+<div class="pt-14">
+
+<!-- ============================================================ -->
+<!-- SCREEN 1: HOME -->
+<!-- ============================================================ -->
+<div id="home" class="screen active fade-in">
+  <!-- Navbar -->
+  <nav class="bg-white border-b border-gray-100 px-4 py-3">
+    <div class="max-w-6xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="w-9 h-9 rounded-xl bg-sky-600 flex items-center justify-center">
+          <span class="text-white font-bold text-sm">AK</span>
+        </div>
+        <div>
+          <p class="font-bold text-gray-900 text-sm leading-tight">AAA E-Sim</p>
+          <p class="text-xs text-gray-400 leading-tight">eSIM & Load Services</p>
+        </div>
+      </div>
+      <div class="hidden md:flex items-center gap-6 text-sm text-gray-600">
+        <a href="#" class="hover:text-sky-600">Plans</a>
+        <a href="#" class="hover:text-sky-600">Top-Up</a>
+        <a href="#" class="hover:text-sky-600">How It Works</a>
+        <a href="#" class="hover:text-sky-600">Support</a>
+      </div>
+      <div class="flex items-center gap-2">
+        <button class="text-sm text-gray-600 hover:text-sky-600 font-medium">Log In</button>
+        <button onclick="show('browse')" class="bg-sky-600 hover:bg-sky-700 text-white text-sm font-semibold px-4 py-2 rounded-xl transition">Browse Plans</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="gradient-hero text-white px-4 py-16">
+    <div class="max-w-6xl mx-auto">
+      <div class="max-w-2xl">
+        <div class="inline-flex items-center gap-2 bg-white/10 text-white/90 text-xs font-medium px-3 py-1.5 rounded-full mb-5 border border-white/20">
+          <span class="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span>
+          Wholesale prices — mas mura kaysa sa direct!
+        </div>
+        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-4">
+          Travel eSIMs &<br/>Load — Mura at Mabilis
+        </h1>
+        <p class="text-white/75 text-lg mb-8 leading-relaxed">
+          Buy international eSIM plans from O2, Vodafone, EE, Three, and more. Pay via GCash, Maya, or card. Get your eSIM instantly.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <button onclick="show('browse')" class="bg-white text-sky-700 font-bold px-7 py-3.5 rounded-xl hover:bg-sky-50 transition text-center">
+            Browse eSIM Plans
+          </button>
+          <button class="bg-white/10 border border-white/30 text-white font-semibold px-7 py-3.5 rounded-xl hover:bg-white/20 transition text-center">
+            Top-Up Existing eSIM
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Carriers strip -->
+  <div class="bg-white border-b border-gray-100 py-4 px-4">
+    <div class="max-w-6xl mx-auto flex items-center justify-between gap-4 overflow-x-auto">
+      <span class="text-xs text-gray-400 font-medium whitespace-nowrap">Available carriers:</span>
+      <div class="flex items-center gap-6">
+        <span class="text-sm font-semibold text-gray-500">O2</span>
+        <span class="text-sm font-semibold text-gray-500">Vodafone</span>
+        <span class="text-sm font-semibold text-gray-500">EE</span>
+        <span class="text-sm font-semibold text-gray-500">Three</span>
+        <span class="text-sm font-semibold text-gray-500">Bouygues</span>
+        <span class="text-sm font-semibold text-gray-500">Global64</span>
+        <span class="text-sm font-semibold text-gray-500">Orange</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Featured Plans -->
+  <div class="max-w-6xl mx-auto px-4 py-12">
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="text-2xl font-bold text-gray-900">Best Sellers</h2>
+      <button onclick="show('browse')" class="text-sky-600 text-sm font-semibold hover:underline">View all plans →</button>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <!-- Plan card 1 -->
+      <div onclick="show('detail')" class="bg-white rounded-2xl border border-gray-200 p-5 cursor-pointer card-hover">
+        <div class="flex items-start justify-between mb-3">
+          <div>
+            <span class="carrier-badge font-bold text-sky-600 uppercase tracking-widest">Vodafone Travel</span>
+            <p class="text-lg font-bold text-gray-900 mt-0.5">10GB — 30 Days</p>
+          </div>
+          <span class="bg-green-50 text-green-700 text-xs font-semibold px-2.5 py-1 rounded-full">Global</span>
+        </div>
+        <div class="text-3xl font-extrabold text-gray-900 mb-1">₱ 850</div>
+        <p class="text-xs text-gray-400 mb-4">~£14.50 wholesale</p>
+        <div class="flex items-center gap-4 text-xs text-gray-500 mb-4">
+          <span>📶 10GB data</span>
+          <span>📞 Calls + SMS</span>
+          <span>🌍 100+ countries</span>
+        </div>
+        <button onclick="show('detail')" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2.5 rounded-xl text-sm transition">View Plan</button>
+      </div>
+      <!-- Plan card 2 -->
+      <div class="bg-white rounded-2xl border-2 border-sky-500 p-5 cursor-pointer card-hover relative">
+        <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-sky-500 text-white text-xs font-bold px-3 py-1 rounded-full">MOST POPULAR</div>
+        <div class="flex items-start justify-between mb-3">
+          <div>
+            <span class="carrier-badge font-bold text-sky-600 uppercase tracking-widest">O2 Travel</span>
+            <p class="text-lg font-bold text-gray-900 mt-0.5">20GB — 30 Days</p>
+          </div>
+          <span class="bg-blue-50 text-blue-700 text-xs font-semibold px-2.5 py-1 rounded-full">Europe</span>
+        </div>
+        <div class="text-3xl font-extrabold text-gray-900 mb-1">₱ 1,250</div>
+        <p class="text-xs text-gray-400 mb-4">~£21.00 wholesale</p>
+        <div class="flex items-center gap-4 text-xs text-gray-500 mb-4">
+          <span>📶 20GB data</span>
+          <span>📞 Calls + SMS</span>
+          <span>🇪🇺 EU coverage</span>
+        </div>
+        <button onclick="show('detail')" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2.5 rounded-xl text-sm transition">View Plan</button>
+      </div>
+      <!-- Plan card 3 -->
+      <div class="bg-white rounded-2xl border border-gray-200 p-5 cursor-pointer card-hover">
+        <div class="flex items-start justify-between mb-3">
+          <div>
+            <span class="carrier-badge font-bold text-sky-600 uppercase tracking-widest">EE UK</span>
+            <p class="text-lg font-bold text-gray-900 mt-0.5">5GB — 30 Days</p>
+          </div>
+          <span class="bg-purple-50 text-purple-700 text-xs font-semibold px-2.5 py-1 rounded-full">UK</span>
+        </div>
+        <div class="text-3xl font-extrabold text-gray-900 mb-1">₱ 480</div>
+        <p class="text-xs text-gray-400 mb-4">~£8.00 wholesale</p>
+        <div class="flex items-center gap-4 text-xs text-gray-500 mb-4">
+          <span>📶 5GB data</span>
+          <span>📞 Calls + SMS</span>
+          <span>🇬🇧 UK only</span>
+        </div>
+        <button onclick="show('detail')" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2.5 rounded-xl text-sm transition">View Plan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- How it works -->
+  <div class="bg-sky-50 border-y border-sky-100 px-4 py-12">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-2xl font-bold text-gray-900 text-center mb-8">Paano Gumagana? / How It Works</h2>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div class="text-center">
+          <div class="w-14 h-14 bg-sky-600 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-3">📱</div>
+          <p class="font-semibold text-gray-900 mb-1">1. Pumili ng Plan</p>
+          <p class="text-sm text-gray-500">Choose your eSIM plan by carrier and data size</p>
+        </div>
+        <div class="text-center">
+          <div class="w-14 h-14 bg-sky-600 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-3">💳</div>
+          <p class="font-semibold text-gray-900 mb-1">2. Bayaran via GCash</p>
+          <p class="text-sm text-gray-500">Pay with GCash, Maya, or any debit/credit card</p>
+        </div>
+        <div class="text-center">
+          <div class="w-14 h-14 bg-sky-600 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-3">⚡</div>
+          <p class="font-semibold text-gray-900 mb-1">3. Instant Delivery</p>
+          <p class="text-sm text-gray-500">Get your eSIM QR code via email — agad agad!</p>
+        </div>
+        <div class="text-center">
+          <div class="w-14 h-14 bg-sky-600 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-3">✈️</div>
+          <p class="font-semibold text-gray-900 mb-1">4. Mag-enjoy na!</p>
+          <p class="text-sm text-gray-500">Scan, activate, and stay connected abroad</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-gray-400 px-4 py-8">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <div class="w-7 h-7 rounded-lg bg-sky-600 flex items-center justify-center">
+          <span class="text-white font-bold text-xs">AK</span>
+        </div>
+        <span class="text-white font-semibold text-sm">AAA E-Sim eSIM Services</span>
+      </div>
+      <p class="text-xs">© 2026 AAA E-Sim. Powered by eSIM.net Wholesale API.</p>
+      <div class="flex gap-4 text-xs">
+        <a href="#" class="hover:text-white">Privacy</a>
+        <a href="#" class="hover:text-white">Terms</a>
+        <a href="#" class="hover:text-white">Support</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ============================================================ -->
+<!-- SCREEN 2: BROWSE PLANS -->
+<!-- ============================================================ -->
+<div id="browse" class="screen fade-in">
+  <nav class="bg-white border-b border-gray-100 px-4 py-3">
+    <div class="max-w-6xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="w-9 h-9 rounded-xl bg-sky-600 flex items-center justify-center">
+          <span class="text-white font-bold text-sm">AK</span>
+        </div>
+        <div>
+          <p class="font-bold text-gray-900 text-sm leading-tight">AAA E-Sim</p>
+          <p class="text-xs text-gray-400 leading-tight">eSIM & Load Services</p>
+        </div>
+      </div>
+      <button onclick="show('cart')" class="relative bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-xl text-sm font-medium transition flex items-center gap-2">
+        🛒 Cart
+        <span class="bg-sky-600 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">1</span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="max-w-6xl mx-auto px-4 py-8">
+    <h1 class="text-2xl font-bold text-gray-900 mb-1">Browse eSIM Plans</h1>
+    <p class="text-gray-500 text-sm mb-6">30+ plans from top carriers. Pay via GCash, Maya, or card.</p>
+
+    <!-- Filters -->
+    <div class="flex flex-wrap gap-2 mb-6">
+      <button class="bg-sky-600 text-white text-sm font-semibold px-4 py-2 rounded-xl">All Carriers</button>
+      <button class="bg-white border border-gray-200 text-gray-600 text-sm font-medium px-4 py-2 rounded-xl hover:border-sky-400 transition">O2</button>
+      <button class="bg-white border border-gray-200 text-gray-600 text-sm font-medium px-4 py-2 rounded-xl hover:border-sky-400 transition">Vodafone</button>
+      <button class="bg-white border border-gray-200 text-gray-600 text-sm font-medium px-4 py-2 rounded-xl hover:border-sky-400 transition">EE</button>
+      <button class="bg-white border border-gray-200 text-gray-600 text-sm font-medium px-4 py-2 rounded-xl hover:border-sky-400 transition">Three</button>
+      <button class="bg-white border border-gray-200 text-gray-600 text-sm font-medium px-4 py-2 rounded-xl hover:border-sky-400 transition">Global64</button>
+      <button class="bg-white border border-gray-200 text-gray-600 text-sm font-medium px-4 py-2 rounded-xl hover:border-sky-400 transition">Orange</button>
+    </div>
+
+    <!-- Plan grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+      <div onclick="show('detail')" class="bg-white rounded-2xl border-2 border-sky-500 p-5 cursor-pointer card-hover relative">
+        <div class="absolute -top-3 left-4 bg-sky-500 text-white text-xs font-bold px-3 py-1 rounded-full">BEST VALUE</div>
+        <div class="flex items-start justify-between mb-3 mt-1">
+          <div>
+            <span class="carrier-badge font-bold text-sky-600 uppercase tracking-widest">O2 Travel</span>
+            <p class="text-base font-bold text-gray-900 mt-0.5">20GB — 30 Days</p>
+            <p class="text-xs text-gray-400">EU + UK coverage</p>
+          </div>
+          <span class="bg-blue-50 text-blue-700 text-xs font-semibold px-2 py-0.5 rounded-full">Europe</span>
+        </div>
+        <div class="text-2xl font-extrabold text-gray-900 mb-3">₱ 1,250</div>
+        <div class="flex flex-wrap gap-1.5 mb-4">
+          <span class="bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded-full">📶 20GB</span>
+          <span class="bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded-full">📞 Voice</span>
+          <span class="bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded-full">💬 SMS</span>
+        </div>
+        <button onclick="show('detail')" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2.5 rounded-xl text-sm transition">View Details</button>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-gray-200 p-5 cursor-pointer card-hover">
+        <div class="flex items-start justify-between mb-3">
+          <div>
+            <span class="carrier-badge font-bold text-sky-600 uppercase tracking-widest">Vodafone Travel</span>
+            <p class="text-base font-bold text-gray-900 mt-0.5">10GB — 30 Days</p>
+            <p class="text-xs text-gray-400">100+ countries</p>
+          </div>
+          <span class="bg-green-50 text-green-700 text-xs font-semibold px-2 py-0.5 rounded-full">Global</span>
+        </div>
+        <div class="text-2xl font-extrabold text-gray-900 mb-3">₱ 850</div>
+        <div class="flex flex-wrap gap-1.5 mb-4">
+          <span class="bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded-full">📶 10GB</span>
+          <span class="bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded-full">📞 Voice</span>
+          <span class="bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded-full">💬 SMS</span>
+        </div>
+        <button class="w-full bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2.5 rounded-xl text-sm transition">View Details</button>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-gray-200 p-5 cursor-pointer card-hover">
+        <div class="flex items-start justify-between mb-3">
+          <div>
+            <span class="carrier-badge font-bold text-sky-600 uppercase tracking-widest">EE UK</span>
+            <p class="text-base font-bold text-gray-900 mt-0.5">5GB — 30 Days</p>
+            <p class="text-xs text-gray-400">UK only</p>
+          </div>
+          <span class="bg-purple-50 text-purple-700 text-xs font-semibold px-2 py-0.5 rounded-full">UK</span>
+        </div>
+        <div class="text-2xl font-extrabold text-gray-900 mb-3">₱ 480</div>
+        <div class="flex flex-wrap gap-1.5 mb-4">
+          <span class="bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded-full">📶 5GB</span>
+          <span class="bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded-full">📞 Voice</span>
+          <span class="bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded-full">💬 SMS</span>
+        </div>
+        <button class="w-full bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2.5 rounded-xl text-sm transition">View Details</button>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-gray-200 p-5 cursor-pointer card-hover">
+        <div class="flex items-start justify-between mb-3">
+          <div>
+            <span class="carrier-badge font-bold text-sky-600 uppercase tracking-widest">Three Travel</span>
+            <p class="text-base font-bold text-gray-900 mt-0.5">15GB — 30 Days</p>
+            <p class="text-xs text-gray-400">71 countries</p>
+          </div>
+          <span class="bg-orange-50 text-orange-700 text-xs font-semibold px-2 py-0.5 rounded-full">Asia+</span>
+        </div>
+        <div class="text-2xl font-extrabold text-gray-900 mb-3">₱ 990</div>
+        <div class="flex flex-wrap gap-1.5 mb-4">
+          <span class="bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded-full">📶 15GB</span>
+          <span class="bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded-full">📞 Voice</span>
+          <span class="bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded-full">💬 SMS</span>
+        </div>
+        <button class="w-full bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2.5 rounded-xl text-sm transition">View Details</button>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-gray-200 p-5 cursor-pointer card-hover">
+        <div class="flex items-start justify-between mb-3">
+          <div>
+            <span class="carrier-badge font-bold text-sky-600 uppercase tracking-widest">Vodafone VIP</span>
+            <p class="text-base font-bold text-gray-900 mt-0.5">Unlimited — 30 Days</p>
+            <p class="text-xs text-gray-400">UK only</p>
+          </div>
+          <span class="bg-purple-50 text-purple-700 text-xs font-semibold px-2 py-0.5 rounded-full">UK</span>
+        </div>
+        <div class="text-2xl font-extrabold text-gray-900 mb-3">₱ 1,850</div>
+        <div class="flex flex-wrap gap-1.5 mb-4">
+          <span class="bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded-full">📶 Unli Data</span>
+          <span class="bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded-full">📞 Voice</span>
+          <span class="bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded-full">💬 SMS</span>
+        </div>
+        <button class="w-full bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2.5 rounded-xl text-sm transition">View Details</button>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-gray-200 p-5 cursor-pointer card-hover">
+        <div class="flex items-start justify-between mb-3">
+          <div>
+            <span class="carrier-badge font-bold text-sky-600 uppercase tracking-widest">Global64</span>
+            <p class="text-base font-bold text-gray-900 mt-0.5">8GB — 15 Days</p>
+            <p class="text-xs text-gray-400">Data only</p>
+          </div>
+          <span class="bg-green-50 text-green-700 text-xs font-semibold px-2 py-0.5 rounded-full">Global</span>
+        </div>
+        <div class="text-2xl font-extrabold text-gray-900 mb-3">₱ 590</div>
+        <div class="flex flex-wrap gap-1.5 mb-4">
+          <span class="bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded-full">📶 8GB</span>
+          <span class="bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded-full">🌐 Data only</span>
+        </div>
+        <button class="w-full bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2.5 rounded-xl text-sm transition">View Details</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SCREEN 3: PLAN DETAIL -->
+<!-- ============================================================ -->
+<div id="detail" class="screen fade-in">
+  <nav class="bg-white border-b border-gray-100 px-4 py-3">
+    <div class="max-w-6xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <button onclick="show('browse')" class="text-gray-400 hover:text-gray-600 transition">← Back</button>
+        <div class="flex items-center gap-2">
+          <div class="w-9 h-9 rounded-xl bg-sky-600 flex items-center justify-center">
+            <span class="text-white font-bold text-sm">AK</span>
+          </div>
+          <p class="font-bold text-gray-900 text-sm">AAA E-Sim</p>
+        </div>
+      </div>
+      <button onclick="show('cart')" class="relative bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-xl text-sm font-medium transition flex items-center gap-2">
+        🛒 Cart <span class="bg-sky-600 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">1</span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="max-w-5xl mx-auto px-4 py-8">
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-8">
+
+      <!-- Plan Info -->
+      <div class="md:col-span-3">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="carrier-badge font-bold text-sky-600 uppercase tracking-widest">O2 Travel</span>
+          <span class="bg-blue-50 text-blue-700 text-xs font-semibold px-2 py-0.5 rounded-full">Europe</span>
+          <span class="bg-green-50 text-green-700 text-xs font-semibold px-2 py-0.5 rounded-full">✓ In Stock</span>
+        </div>
+        <h1 class="text-2xl font-extrabold text-gray-900 mb-4">O2 Travel eSIM — 20GB / 30 Days</h1>
+
+        <div class="grid grid-cols-3 gap-3 mb-6">
+          <div class="bg-sky-50 rounded-xl p-3 text-center">
+            <p class="text-xs text-sky-600 font-semibold mb-1">Data</p>
+            <p class="text-lg font-extrabold text-gray-900">20 GB</p>
+          </div>
+          <div class="bg-sky-50 rounded-xl p-3 text-center">
+            <p class="text-xs text-sky-600 font-semibold mb-1">Validity</p>
+            <p class="text-lg font-extrabold text-gray-900">30 Days</p>
+          </div>
+          <div class="bg-sky-50 rounded-xl p-3 text-center">
+            <p class="text-xs text-sky-600 font-semibold mb-1">Countries</p>
+            <p class="text-lg font-extrabold text-gray-900">35+</p>
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <h3 class="font-semibold text-gray-900 mb-3">Included Features</h3>
+          <ul class="space-y-2">
+            <li class="flex items-center gap-2 text-sm text-gray-600"><span class="text-green-500">✓</span> 20GB high-speed data (4G/LTE)</li>
+            <li class="flex items-center gap-2 text-sm text-gray-600"><span class="text-green-500">✓</span> Voice calls (incoming + outgoing)</li>
+            <li class="flex items-center gap-2 text-sm text-gray-600"><span class="text-green-500">✓</span> SMS messaging</li>
+            <li class="flex items-center gap-2 text-sm text-gray-600"><span class="text-green-500">✓</span> Works in EU, UK, and 35+ countries</li>
+            <li class="flex items-center gap-2 text-sm text-gray-600"><span class="text-green-500">✓</span> eSIM — no physical SIM needed</li>
+            <li class="flex items-center gap-2 text-sm text-gray-600"><span class="text-green-500">✓</span> Instant delivery via email after payment</li>
+          </ul>
+        </div>
+
+        <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6">
+          <p class="text-sm font-semibold text-amber-800 mb-1">⚡ Instant eSIM Delivery</p>
+          <p class="text-xs text-amber-700">Matatanggap mo ang eSIM QR code sa email mo agad pagkatapos ng bayad. / Your eSIM QR code will be delivered to your email immediately after payment.</p>
+        </div>
+
+        <div class="bg-gray-50 rounded-xl p-4">
+          <h3 class="font-semibold text-gray-900 mb-3 text-sm">Device Compatibility</h3>
+          <p class="text-xs text-gray-500">Compatible with iPhone XS and later, Samsung Galaxy S20+, Google Pixel 3+, and most modern eSIM-enabled devices. Check your device settings for eSIM support.</p>
+        </div>
+      </div>
+
+      <!-- Purchase card -->
+      <div class="md:col-span-2">
+        <div class="bg-white rounded-2xl border-2 border-gray-200 p-5 sticky top-20">
+          <div class="mb-4">
+            <p class="text-3xl font-extrabold text-gray-900">₱ 1,250</p>
+            <p class="text-xs text-gray-400 mt-0.5">Includes all taxes and fees</p>
+          </div>
+
+          <div class="border-t border-gray-100 pt-4 mb-4">
+            <p class="text-xs font-semibold text-gray-500 mb-2">Pay with:</p>
+            <div class="flex gap-2">
+              <div class="flex-1 border border-gray-200 rounded-lg p-2 text-center">
+                <p class="text-lg">💚</p>
+                <p class="text-xs font-semibold text-gray-600">GCash</p>
+              </div>
+              <div class="flex-1 border border-gray-200 rounded-lg p-2 text-center">
+                <p class="text-lg">💙</p>
+                <p class="text-xs font-semibold text-gray-600">Maya</p>
+              </div>
+              <div class="flex-1 border border-gray-200 rounded-lg p-2 text-center">
+                <p class="text-lg">💳</p>
+                <p class="text-xs font-semibold text-gray-600">Card</p>
+              </div>
+            </div>
+          </div>
+
+          <button onclick="show('cart')" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3.5 rounded-xl text-base transition mb-3">
+            Add to Cart
+          </button>
+          <button onclick="show('checkout')" class="w-full bg-gray-900 hover:bg-gray-800 text-white font-bold py-3.5 rounded-xl text-base transition">
+            Buy Now
+          </button>
+
+          <p class="text-xs text-center text-gray-400 mt-3">🔒 Secure checkout · Instant delivery</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SCREEN 4: CART -->
+<!-- ============================================================ -->
+<div id="cart" class="screen fade-in">
+  <nav class="bg-white border-b border-gray-100 px-4 py-3">
+    <div class="max-w-6xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <button onclick="show('browse')" class="text-gray-400 hover:text-gray-600 transition">← Continue Shopping</button>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-xl bg-sky-600 flex items-center justify-center">
+          <span class="text-white font-bold text-xs">AK</span>
+        </div>
+        <p class="font-bold text-gray-900 text-sm">AAA E-Sim</p>
+      </div>
+    </div>
+  </nav>
+
+  <div class="max-w-4xl mx-auto px-4 py-8">
+    <h1 class="text-2xl font-bold text-gray-900 mb-6">Your Cart 🛒</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+      <div class="md:col-span-3 space-y-4">
+        <div class="bg-white rounded-2xl border border-gray-200 p-5">
+          <div class="flex items-start justify-between">
+            <div>
+              <span class="carrier-badge font-bold text-sky-600 uppercase tracking-widest text-xs">O2 Travel</span>
+              <p class="font-bold text-gray-900 mt-0.5">O2 Travel eSIM — 20GB / 30 Days</p>
+              <p class="text-sm text-gray-400 mt-1">Europe coverage · Voice + Data + SMS</p>
+              <p class="text-xs text-green-600 font-medium mt-1.5">⚡ Instant eSIM delivery after payment</p>
+            </div>
+            <div class="text-right ml-4">
+              <p class="text-xl font-extrabold text-gray-900">₱ 1,250</p>
+              <button class="text-xs text-red-400 hover:text-red-600 mt-2 transition">Remove</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-sky-50 border border-sky-200 rounded-xl p-4">
+          <p class="text-sm font-semibold text-sky-800 mb-1">📧 eSIM Delivery Info</p>
+          <p class="text-xs text-sky-700">Your eSIM QR code will be sent to your email automatically after payment is confirmed. Matatanggap sa loob ng ilang segundo.</p>
+        </div>
+      </div>
+
+      <!-- Order summary -->
+      <div class="md:col-span-2">
+        <div class="bg-white rounded-2xl border border-gray-200 p-5">
+          <h2 class="font-semibold text-gray-900 mb-4">Order Summary</h2>
+          <div class="space-y-2 mb-4">
+            <div class="flex justify-between text-sm">
+              <span class="text-gray-500">O2 Travel 20GB</span>
+              <span class="font-medium">₱ 1,250</span>
+            </div>
+            <div class="flex justify-between text-sm">
+              <span class="text-gray-500">Service fee</span>
+              <span class="font-medium text-green-600">FREE</span>
+            </div>
+          </div>
+          <div class="border-t border-gray-100 pt-3 mb-5">
+            <div class="flex justify-between">
+              <span class="font-bold text-gray-900">Total</span>
+              <span class="font-extrabold text-xl text-gray-900">₱ 1,250</span>
+            </div>
+          </div>
+          <button onclick="show('checkout')" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3.5 rounded-xl text-base transition">
+            Proceed to Checkout →
+          </button>
+          <p class="text-xs text-center text-gray-400 mt-3">🔒 Secure · GCash · Maya · Card</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SCREEN 5: CHECKOUT -->
+<!-- ============================================================ -->
+<div id="checkout" class="screen fade-in">
+  <nav class="bg-white border-b border-gray-100 px-4 py-3">
+    <div class="max-w-6xl mx-auto flex items-center justify-between">
+      <button onclick="show('cart')" class="text-gray-400 hover:text-gray-600 transition text-sm">← Back to Cart</button>
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-xl bg-sky-600 flex items-center justify-center">
+          <span class="text-white font-bold text-xs">AK</span>
+        </div>
+        <p class="font-bold text-gray-900 text-sm">AAA E-Sim</p>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Progress -->
+  <div class="bg-white border-b border-gray-100 px-4 py-3">
+    <div class="max-w-xl mx-auto flex items-center justify-center gap-4 text-xs font-medium">
+      <div class="flex items-center gap-1.5 text-sky-600">
+        <div class="w-5 h-5 rounded-full bg-sky-600 text-white flex items-center justify-center font-bold text-xs">✓</div>
+        Cart
+      </div>
+      <div class="flex-1 h-px bg-sky-200"></div>
+      <div class="flex items-center gap-1.5 text-sky-600 font-semibold">
+        <div class="w-5 h-5 rounded-full bg-sky-600 text-white flex items-center justify-center font-bold text-xs">2</div>
+        Checkout
+      </div>
+      <div class="flex-1 h-px bg-gray-200"></div>
+      <div class="flex items-center gap-1.5 text-gray-400">
+        <div class="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center font-bold text-xs">3</div>
+        Done
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-4xl mx-auto px-4 py-8">
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-8">
+
+      <!-- Form -->
+      <div class="md:col-span-3 space-y-6">
+
+        <div class="bg-white rounded-2xl border border-gray-200 p-5">
+          <h2 class="font-semibold text-gray-900 mb-4">Your Details</h2>
+          <div class="space-y-3">
+            <div>
+              <label class="block text-xs font-semibold text-gray-500 mb-1.5">Email Address *</label>
+              <input type="email" value="juan.delacruz@gmail.com" class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-sky-400" readonly />
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-semibold text-gray-500 mb-1.5">First Name *</label>
+                <input type="text" value="Juan" class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-sky-400" readonly />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-gray-500 mb-1.5">Last Name *</label>
+                <input type="text" value="dela Cruz" class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-sky-400" readonly />
+              </div>
+            </div>
+            <div class="flex items-center gap-2 pt-1">
+              <input type="checkbox" id="create-account" class="rounded" />
+              <label for="create-account" class="text-xs text-gray-500">Create an account to track my orders</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Payment Method -->
+        <div class="bg-white rounded-2xl border border-gray-200 p-5">
+          <h2 class="font-semibold text-gray-900 mb-4">Payment Method</h2>
+          <div class="space-y-3">
+
+            <label class="flex items-center gap-4 border-2 border-sky-500 bg-sky-50 rounded-xl p-4 cursor-pointer">
+              <input type="radio" name="payment" checked class="text-sky-600" />
+              <div class="flex items-center gap-3 flex-1">
+                <div class="w-10 h-10 bg-green-500 rounded-xl flex items-center justify-center text-white font-bold text-lg">G</div>
+                <div>
+                  <p class="font-semibold text-gray-900 text-sm">GCash</p>
+                  <p class="text-xs text-gray-500">Bayad via GCash QR o redirect</p>
+                </div>
+              </div>
+              <span class="text-sky-600 font-bold text-xs">Selected</span>
+            </label>
+
+            <label class="flex items-center gap-4 border border-gray-200 rounded-xl p-4 cursor-pointer hover:border-sky-300 transition">
+              <input type="radio" name="payment" class="text-sky-600" />
+              <div class="flex items-center gap-3 flex-1">
+                <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-lg">M</div>
+                <div>
+                  <p class="font-semibold text-gray-900 text-sm">Maya</p>
+                  <p class="text-xs text-gray-500">PayMaya / Maya digital wallet</p>
+                </div>
+              </div>
+            </label>
+
+            <label class="flex items-center gap-4 border border-gray-200 rounded-xl p-4 cursor-pointer hover:border-sky-300 transition">
+              <input type="radio" name="payment" class="text-sky-600" />
+              <div class="flex items-center gap-3 flex-1">
+                <div class="w-10 h-10 bg-gray-800 rounded-xl flex items-center justify-center text-white text-lg">💳</div>
+                <div>
+                  <p class="font-semibold text-gray-900 text-sm">Debit / Credit Card</p>
+                  <p class="text-xs text-gray-500">Visa, Mastercard, JCB</p>
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Order summary -->
+      <div class="md:col-span-2">
+        <div class="bg-white rounded-2xl border border-gray-200 p-5 sticky top-20">
+          <h2 class="font-semibold text-gray-900 mb-4">Order Summary</h2>
+          <div class="bg-gray-50 rounded-xl p-3 mb-4">
+            <p class="text-xs font-bold text-gray-700">O2 Travel eSIM — 20GB / 30 Days</p>
+            <p class="text-xs text-gray-400 mt-0.5">Europe coverage · eSIM delivery via email</p>
+          </div>
+          <div class="space-y-2 mb-4">
+            <div class="flex justify-between text-sm">
+              <span class="text-gray-500">Subtotal</span>
+              <span>₱ 1,250</span>
+            </div>
+            <div class="flex justify-between text-sm">
+              <span class="text-gray-500">Service fee</span>
+              <span class="text-green-600">FREE</span>
+            </div>
+          </div>
+          <div class="border-t border-gray-100 pt-3 mb-5">
+            <div class="flex justify-between">
+              <span class="font-bold">Total</span>
+              <span class="font-extrabold text-xl">₱ 1,250</span>
+            </div>
+            <p class="text-xs text-gray-400 mt-0.5">Payment via GCash</p>
+          </div>
+          <button onclick="show('processing')" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3.5 rounded-xl text-base transition">
+            Pay ₱ 1,250 via GCash
+          </button>
+          <p class="text-xs text-center text-gray-400 mt-3">🔒 Secured by PayMongo</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SCREEN 6: PROCESSING -->
+<!-- ============================================================ -->
+<div id="processing" class="screen fade-in">
+  <div class="min-h-screen bg-gray-50 flex flex-col items-center justify-center px-4">
+    <div class="bg-white rounded-3xl border border-gray-200 p-10 max-w-sm w-full text-center shadow-sm">
+      <div class="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-5">
+        <div class="w-12 h-12 border-4 border-green-400 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+      <h2 class="text-xl font-bold text-gray-900 mb-2">Processing Payment...</h2>
+      <p class="text-sm text-gray-500 mb-6">Naghihintay sa confirmation mula GCash.<br/>Please do not close this page.</p>
+      <div class="bg-green-50 rounded-xl p-4 text-left">
+        <p class="text-xs font-semibold text-green-800 mb-2">GCash Payment Request Sent</p>
+        <div class="space-y-1.5">
+          <div class="flex justify-between text-xs">
+            <span class="text-green-700">Amount</span>
+            <span class="font-bold text-green-900">₱ 1,250.00</span>
+          </div>
+          <div class="flex justify-between text-xs">
+            <span class="text-green-700">Merchant</span>
+            <span class="font-bold text-green-900">AAA E-Sim eSIM</span>
+          </div>
+          <div class="flex justify-between text-xs">
+            <span class="text-green-700">Reference</span>
+            <span class="font-bold text-green-900">AK-20260514-001</span>
+          </div>
+        </div>
+      </div>
+      <button onclick="show('success')" class="mt-6 w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 rounded-xl text-sm transition">
+        Simulate Payment Success →
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SCREEN 7: SUCCESS — eSIM DELIVERED -->
+<!-- ============================================================ -->
+<div id="success" class="screen fade-in">
+  <nav class="bg-white border-b border-gray-100 px-4 py-3">
+    <div class="max-w-6xl mx-auto flex items-center justify-center">
+      <div class="flex items-center gap-2">
+        <div class="w-9 h-9 rounded-xl bg-sky-600 flex items-center justify-center">
+          <span class="text-white font-bold text-sm">AK</span>
+        </div>
+        <p class="font-bold text-gray-900 text-sm">AAA E-Sim eSIM Services</p>
+      </div>
+    </div>
+  </nav>
+
+  <div class="max-w-2xl mx-auto px-4 py-10">
+
+    <!-- Success header -->
+    <div class="text-center mb-8">
+      <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <span class="text-4xl">✅</span>
+      </div>
+      <h1 class="text-2xl font-extrabold text-gray-900 mb-2">Payment Successful!</h1>
+      <p class="text-gray-500 text-sm">Your eSIM is ready. Napadala na sa email mo! 🎉</p>
+      <p class="text-xs text-gray-400 mt-1">Order #AK-20260514-001 · juan.delacruz@gmail.com</p>
+    </div>
+
+    <!-- eSIM Card -->
+    <div class="bg-gradient-to-br from-sky-900 to-indigo-900 rounded-3xl p-6 mb-5 text-white">
+      <div class="flex items-start justify-between mb-5">
+        <div>
+          <p class="text-sky-300 text-xs font-semibold uppercase tracking-widest mb-1">Your eSIM Plan</p>
+          <p class="text-xl font-extrabold">O2 Travel — 20GB</p>
+          <p class="text-sky-300 text-sm">30 Days · Europe Coverage</p>
+        </div>
+        <div class="text-right">
+          <p class="text-xs text-sky-300">Paid</p>
+          <p class="font-bold text-lg">₱ 1,250</p>
+        </div>
+      </div>
+
+      <!-- QR Code placeholder -->
+      <div class="bg-white rounded-2xl p-4 flex flex-col items-center mb-4">
+        <p class="text-gray-600 text-xs font-semibold mb-3">Scan to Activate Your eSIM</p>
+        <!-- Pixel-art QR placeholder -->
+        <svg width="140" height="140" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="140" height="140" fill="white"/>
+          <!-- Top-left finder -->
+          <rect x="10" y="10" width="40" height="40" rx="2" fill="#1e293b"/>
+          <rect x="18" y="18" width="24" height="24" rx="1" fill="white"/>
+          <rect x="24" y="24" width="12" height="12" rx="1" fill="#1e293b"/>
+          <!-- Top-right finder -->
+          <rect x="90" y="10" width="40" height="40" rx="2" fill="#1e293b"/>
+          <rect x="98" y="18" width="24" height="24" rx="1" fill="white"/>
+          <rect x="104" y="24" width="12" height="12" rx="1" fill="#1e293b"/>
+          <!-- Bottom-left finder -->
+          <rect x="10" y="90" width="40" height="40" rx="2" fill="#1e293b"/>
+          <rect x="18" y="98" width="24" height="24" rx="1" fill="white"/>
+          <rect x="24" y="104" width="12" height="12" rx="1" fill="#1e293b"/>
+          <!-- Data modules (random looking but static) -->
+          <rect x="60" y="10" width="8" height="8" fill="#1e293b"/>
+          <rect x="72" y="10" width="8" height="8" fill="#1e293b"/>
+          <rect x="60" y="22" width="8" height="8" fill="#1e293b"/>
+          <rect x="60" y="34" width="8" height="8" fill="#1e293b"/>
+          <rect x="72" y="34" width="8" height="8" fill="#1e293b"/>
+          <rect x="10" y="60" width="8" height="8" fill="#1e293b"/>
+          <rect x="22" y="60" width="8" height="8" fill="#1e293b"/>
+          <rect x="34" y="60" width="8" height="8" fill="#1e293b"/>
+          <rect x="10" y="72" width="8" height="8" fill="#1e293b"/>
+          <rect x="34" y="72" width="8" height="8" fill="#1e293b"/>
+          <rect x="10" y="84" width="8" height="8" fill="#1e293b"/>
+          <rect x="60" y="60" width="8" height="8" fill="#1e293b"/>
+          <rect x="72" y="60" width="8" height="8" fill="#1e293b"/>
+          <rect x="84" y="60" width="8" height="8" fill="#1e293b"/>
+          <rect x="96" y="60" width="8" height="8" fill="#1e293b"/>
+          <rect x="60" y="72" width="8" height="8" fill="#1e293b"/>
+          <rect x="84" y="72" width="8" height="8" fill="#1e293b"/>
+          <rect x="108" y="72" width="8" height="8" fill="#1e293b"/>
+          <rect x="72" y="84" width="8" height="8" fill="#1e293b"/>
+          <rect x="84" y="84" width="8" height="8" fill="#1e293b"/>
+          <rect x="96" y="84" width="8" height="8" fill="#1e293b"/>
+          <rect x="60" y="96" width="8" height="8" fill="#1e293b"/>
+          <rect x="84" y="96" width="8" height="8" fill="#1e293b"/>
+          <rect x="108" y="96" width="8" height="8" fill="#1e293b"/>
+          <rect x="72" y="108" width="8" height="8" fill="#1e293b"/>
+          <rect x="96" y="108" width="8" height="8" fill="#1e293b"/>
+          <rect x="120" y="108" width="8" height="8" fill="#1e293b"/>
+        </svg>
+        <p class="text-gray-400 text-xs mt-2">ICCID: 89012345678901234567</p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3 text-xs">
+        <div class="bg-white/10 rounded-xl p-3">
+          <p class="text-sky-300 mb-1">SM-DP+ Address</p>
+          <p class="font-mono text-xs break-all">rsp.o2.com</p>
+        </div>
+        <div class="bg-white/10 rounded-xl p-3">
+          <p class="text-sky-300 mb-1">Activation Code</p>
+          <p class="font-mono text-xs break-all">O2-TRAVEL-XXXX-YYYY</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Activation steps -->
+    <div class="bg-white rounded-2xl border border-gray-200 p-5 mb-5">
+      <h2 class="font-semibold text-gray-900 mb-4">How to Activate Your eSIM</h2>
+      <div class="space-y-3">
+        <div class="flex gap-3">
+          <div class="w-7 h-7 bg-sky-100 text-sky-700 rounded-full flex items-center justify-center font-bold text-xs flex-shrink-0">1</div>
+          <div>
+            <p class="font-medium text-sm text-gray-900">Go to Settings</p>
+            <p class="text-xs text-gray-500">Settings → Cellular → Add eSIM / Add Data Plan</p>
+          </div>
+        </div>
+        <div class="flex gap-3">
+          <div class="w-7 h-7 bg-sky-100 text-sky-700 rounded-full flex items-center justify-center font-bold text-xs flex-shrink-0">2</div>
+          <div>
+            <p class="font-medium text-sm text-gray-900">Scan the QR Code</p>
+            <p class="text-xs text-gray-500">I-scan ang QR code sa itaas. Or i-enter manually ang activation code.</p>
+          </div>
+        </div>
+        <div class="flex gap-3">
+          <div class="w-7 h-7 bg-sky-100 text-sky-700 rounded-full flex items-center justify-center font-bold text-xs flex-shrink-0">3</div>
+          <div>
+            <p class="font-medium text-sm text-gray-900">Follow on-screen prompts</p>
+            <p class="text-xs text-gray-500">Confirm the plan and wait for activation (usually 30–60 seconds).</p>
+          </div>
+        </div>
+        <div class="flex gap-3">
+          <div class="w-7 h-7 bg-green-100 text-green-700 rounded-full flex items-center justify-center font-bold text-xs flex-shrink-0">✓</div>
+          <div>
+            <p class="font-medium text-sm text-gray-900">You're Connected!</p>
+            <p class="text-xs text-gray-500">Enjoy your data plan. Maging ligtas sa byahe! ✈️</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Email confirmation note -->
+    <div class="bg-green-50 border border-green-200 rounded-xl p-4 mb-5">
+      <div class="flex items-start gap-3">
+        <span class="text-xl">📧</span>
+        <div>
+          <p class="font-semibold text-green-800 text-sm">Check Your Email</p>
+          <p class="text-xs text-green-700 mt-0.5">A copy of this eSIM with full activation instructions was sent to <strong>juan.delacruz@gmail.com</strong>. Keep it for reference.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex flex-col sm:flex-row gap-3">
+      <button onclick="show('browse')" class="flex-1 bg-sky-600 hover:bg-sky-700 text-white font-bold py-3.5 rounded-xl text-sm transition text-center">
+        Buy Another Plan
+      </button>
+      <button class="flex-1 bg-white border border-gray-200 hover:border-sky-400 text-gray-700 font-semibold py-3.5 rounded-xl text-sm transition text-center">
+        Download QR Code
+      </button>
+    </div>
+  </div>
+</div>
+
+</div><!-- end pt-14 wrapper -->
+
+<script>
+  function show(screenId) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-pill').forEach(p => p.classList.remove('active'));
+    document.getElementById(screenId).classList.add('active');
+    const pill = document.getElementById('pill-' + screenId);
+    if (pill) pill.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
