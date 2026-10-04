@@ -43,31 +43,6 @@ flowchart LR
     UI --> Mocked
 ```
 
-## Happy Flow
-
-```mermaid
-sequenceDiagram
-    autonumber
-    actor Visitor
-    participant UI as Storefront UI
-    participant Catalog as Static plan catalog
-    participant Checkout as Cart and checkout
-    participant Payment as Simulated payment
-    participant Delivery as Delivery screen
-
-    Visitor->>UI: Browse available plans
-    UI->>Catalog: Read plan data
-    Catalog-->>UI: Return pricing, coverage, and features
-    Visitor->>UI: Select a plan
-    UI->>Checkout: Add plan and continue
-    Visitor->>Checkout: Enter details and choose payment method
-    Checkout->>Payment: Submit demonstration payment
-    Payment-->>Checkout: Show processing state
-    Payment->>Delivery: Complete simulated purchase
-    Delivery-->>Visitor: Show QR and activation guidance
-
-    Note over Checkout,Delivery: Demonstration only, with no live service calls or persistence
-```
 
 ## View the Original Prototype
 
